@@ -91,7 +91,7 @@ def mmn(lambda_rate, mu_rate, num_entries, num_servers):
     return df
 
 # Streamlit application
-st.title("M/M/n Queue Simulation")
+st.title("Simulation Of Bank Data")
 
 # Load data
 try:
