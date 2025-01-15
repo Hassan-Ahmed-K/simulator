@@ -14,6 +14,12 @@ from modules.fig_func import (
     ServerUtilization,
 )
 
+st.set_page_config(
+    page_title="M/M/S Simulator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
 # Title of the Simulation
 st.title("Simulation of M/M/S Queue System")
 

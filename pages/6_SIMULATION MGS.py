@@ -5,6 +5,13 @@ import pandas as pd
 import streamlit as st
 from modules.fig_func import *
 
+st.set_page_config(
+    page_title="M/G/S Simulator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
+
 st.title("Simulation of M/G/S")
 
 def mgn(lembda, meuMin, meuMax, n):

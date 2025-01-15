@@ -1,6 +1,15 @@
 import math
 import streamlit as st
 
+
+st.set_page_config(
+    page_title="M/G/S Queuing Calculator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
+
+
 # Functions from your script
 def get_normal_statistics(service_mean, service_stddev):
     service_variance = service_stddev ** 2
@@ -52,7 +61,7 @@ def calculate_performance_metrics_variance(arrival_rate, num_servers, distributi
         return P0, rho, Lq, L, Wq, W
 
 # Streamlit UI
-st.title("Performance Metrics Calculator")
+st.title("M/G/S Queuing Model")
 
 # Input Fields
 arrival_rate = st.number_input("Arrival Rate (λ)", min_value=0.01, step=0.01, value=2.0, format="%.2f")

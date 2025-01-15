@@ -1,6 +1,14 @@
 import math
 import streamlit as st
 
+
+st.set_page_config(
+    page_title="G/G/S Queuing Calculator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
+
 st.title("G/G/S Queuing Model")
 
 # Function to calculate G/G/S metrics

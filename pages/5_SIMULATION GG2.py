@@ -6,6 +6,12 @@ import streamlit as st
 from scipy.stats import norm
 from modules.fig_func import *
 
+st.set_page_config(
+    page_title="G/G/S Simulator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
 
 st.title("Simulation of G/G/S")
 

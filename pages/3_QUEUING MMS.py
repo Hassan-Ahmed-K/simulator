@@ -1,6 +1,12 @@
 import math
 import streamlit as st
 
+st.set_page_config(
+    page_title="M/M/S Queuing Calculator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
 
 
 st.title("M/M/S Queuing Model")

@@ -3,6 +3,13 @@ import streamlit as st
 import pandas as pd
 
 
+st.set_page_config(
+    page_title="Simulator", 
+    page_icon="./data/simulation.png",  
+    layout="centered",  
+    initial_sidebar_state="auto" 
+)
+
 st.title("Welcome to the Simulation Project (HBL BANK)")
 st.subheader("Group Members:")
 st.write("1. Hassan Ahmed Khan - B21110006041")
