@@ -15,7 +15,7 @@ def calculate_bin_gap(s_no):
     elif length <= 50:
         return 5 
     else:
-        return 15 
+        return 10 
 
 
 # Function to plot Turn Around Time vs Customers

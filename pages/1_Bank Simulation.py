@@ -116,7 +116,7 @@ if st.button("Generate Simulation"):
     try:
         df = mmn(lambda_rate, mu_rate, num_entries=90, num_servers=3)
         st.write("### Simulation Results")
-        st.dataframe(df, hide_index=True)
+        # st.dataframe(df, hide_index=True)
 
         # Calculate averages
         avg_interarrival = df["Inter Arrival Time"].mean()

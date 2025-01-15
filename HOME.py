@@ -12,11 +12,29 @@ st.write("4. Saad Sami Khan B2110006108")
 st.write(" ")
 st.title("1-Data")
 
-df = pd.read_excel("./data/Goodness Of Fit Test(ChiSquare).xlsx", sheet_name="Sheet1")
-df = df.astype(str)
-data = df[:94]
-# df.fillna("-", inplace=True)
-st.dataframe(data,hide_index=True)
+df = pd.read_excel("./data/Goodness Of Fit Test(ChiSquare).xlsx")
+
+# Fill missing values with "-"
+df.fillna("-", inplace=True)
+
+
+data = df.iloc[:94]  # Use .iloc[:94] for integer-based indexing
+
+# Extract specific columns by their names
+columns_to_display = [
+    "CUSTOMER", 
+    "ARRIVAL TIME ", 
+    "SERVICE TIME(START)", 
+    "SERVICE TIME(END)", 
+    "INTER-ARRIVAL TIME(MIN)", 
+    "SERVICE TIME (MIN)"
+]
+
+# Filter the DataFrame to include only the specified columns
+filtered_data = data[columns_to_display]
+
+# Display the filtered DataFrame in Streamlit without an index
+st.dataframe(filtered_data, hide_index=True)
 
 st.title("2-Chi square test")
 st.subheader("i)GOODNESS OF FITNESS INTER-ARRIVAL")
