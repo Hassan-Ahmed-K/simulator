@@ -18,7 +18,7 @@ df = pd.read_excel("./data/Goodness Of Fit Test(ChiSquare).xlsx")
 df.fillna("-", inplace=True)
 
 
-data = df.iloc[:94]  # Use .iloc[:94] for integer-based indexing
+data = df.iloc[:90]  # Use .iloc[:94] for integer-based indexing
 
 # Extract specific columns by their names
 columns_to_display = [
@@ -34,7 +34,8 @@ columns_to_display = [
 filtered_data = data[columns_to_display]
 
 # Display the filtered DataFrame in Streamlit without an index
-st.dataframe(filtered_data, hide_index=True)
+# st.dataframe(filtered_data, hide_index=True)
+st.dataframe(filtered_data, width=1000, height=300, hide_index=True)
 
 st.title("2-Chi square test")
 st.subheader("i)GOODNESS OF FITNESS INTER-ARRIVAL")
