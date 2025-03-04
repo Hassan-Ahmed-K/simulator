@@ -20,7 +20,7 @@ def ggn(lembda, meu, sigma, n_servers):
     s_no = []
     cp = []
     cpl = [0]
-    int_arrival = []
+    int_arrival = [0]
     arrival = []
     service = []
     TA = []
@@ -43,7 +43,7 @@ def ggn(lembda, meu, sigma, n_servers):
     arrival_time = 0
     while ran_var < 1:
         ran_var = float("%.4f" % random.uniform(0, 1))
-        for j in range(len(cp)):
+        for j in range(len(cp)-1):
             if cpl[j] < ran_var <= cp[j]:
                 inter_arrival = j
                 int_arrival.append(inter_arrival)

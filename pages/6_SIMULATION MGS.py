@@ -19,7 +19,7 @@ def mgn(lembda, meuMin, meuMax, n):
     s_no = []
     cp = []
     cpl = [0]
-    int_arrival = []
+    int_arrival = [0]
     arrival = []
     service = []
     TA = []
@@ -41,7 +41,7 @@ def mgn(lembda, meuMin, meuMax, n):
     cpl.pop(-1)
 
     # Inter-arrival time generation
-    for i in range(len(cp)):
+    for i in range(len(cp)-1):
         ran_var = float("%.4f" % random.uniform(0, 1))
         for j in range(len(cp)):
             if cpl[j] < ran_var and ran_var < cp[j]:
