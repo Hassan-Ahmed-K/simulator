@@ -128,7 +128,7 @@ num_servers = st.number_input("Number of servers", min_value=1, max_value=10, st
 if st.button("Generate Simulation"):
     df = ggn(lembda, meu, sigma, num_servers)
     st.write("### Simulation Results")
-    st.dataframe(df,hide_index=True)
+    st.dataframe(df.drop(["Cumulative Probability", "I.A Range"],axis=1), hide_index=True)
 
     avg_interarrival = df["Inter Arrival Time"].mean()
     avg_service = df["Service Time"].mean()
@@ -160,11 +160,14 @@ if st.button("Generate Simulation"):
     st.write("### Service Time vs Customers")
     entVsService(df["Customer"], df["Service Time"])
 
+    st.write("### Model Utilization")
+    server_util = calculate_server_utilization(df)
+    
+    OverallUtilization(np.sum(list(server_util.values())))
+
     st.write("### Server Utilization")
     i=1
-    server_util = calculate_server_utilization(df)
     for server, utilization in server_util.items():
         ServerUtilization(utilization,server_no=i)
         i+=1
-
 

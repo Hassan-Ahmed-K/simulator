@@ -114,7 +114,7 @@ if st.button("Generate Simulation"):
         st.warning("No rows where 'Cumulative Probability' equals 1. Using the entire DataFrame.")
 
     st.write("### Simulation Results")
-    st.dataframe(df.head(100), hide_index=True)
+    st.dataframe(df.drop(["Cumulative Probability"],axis=1), hide_index=True)
 
     avg_interarrival = df["Inter Arrival Time"].mean()
     avg_service = df["Service Time"].mean()
@@ -144,12 +144,16 @@ if st.button("Generate Simulation"):
     entVsService(df["Customer"], df["Service Time"])
 
 
-    i=1
-    st.write("### Server Utilization")
+    st.write("### Model Utilization")
     server_util = calculate_server_utilization(df)
+    OverallUtilization(np.sum(list(server_util.values())))
+
+    st.write("### Server Utilization")
+    i=1
     for server, utilization in server_util.items():
         ServerUtilization(utilization,server_no=i)
         i+=1
+
 
     
 

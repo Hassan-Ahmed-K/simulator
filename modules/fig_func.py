@@ -25,7 +25,7 @@ def entVsTA(s_no, TA):
     ax.bar(s_no, TA, align='center', alpha=0.7)
     ax.set_xlabel('Customers')
     ax.set_ylabel('Turn Around Time')
-    ax.set_title('Turn Around Time in Queue for Each Customer')
+    # ax.set_title('Turn Around Time in Queue for Each Customer')
 
     # Create custom x-tick positions with dynamic bin gap
     x_ticks = range(0, len(s_no) + 1, bin_gap)
@@ -41,7 +41,7 @@ def entVsArrival(s_no, arrival):
     ax.bar(s_no, arrival, align='center', alpha=0.7)
     ax.set_xlabel('Customers')
     ax.set_ylabel('Arrival Time')
-    ax.set_title('Arrival Time in Queue for Each Customer')
+    # ax.set_title('Arrival Time in Queue for Each Customer')
 
     # Create custom x-tick positions with dynamic bin gap
     x_ticks = range(0, len(s_no) + 1, bin_gap)
@@ -57,7 +57,7 @@ def entVsService(s_no, service):
     ax.bar(s_no, service, align='center', alpha=0.7)
     ax.set_xlabel('Customers')
     ax.set_ylabel('Service Time')
-    ax.set_title('Service Time in Queue for Each Customer')
+    # ax.set_title('Service Time in Queue for Each Customer')
 
     # Create custom x-tick positions with dynamic bin gap
     x_ticks = range(0, len(s_no) + 1, bin_gap)
@@ -73,7 +73,7 @@ def entVsWT(s_no, WT):
     ax.bar(s_no, WT, align='center', alpha=0.7)
     ax.set_xlabel('Customers')
     ax.set_ylabel('Wait Time')
-    ax.set_title('Wait Time in Queue for Each Customer')
+    # ax.set_title('Wait Time in Queue for Each Customer')
 
     # Create custom x-tick positions with dynamic bin gap
     x_ticks = range(0, len(s_no) + 1, bin_gap)
@@ -90,24 +90,33 @@ def ServerUtilization(Server_util,server_no):
 
     fig, ax = plt.subplots()
     ax.pie(y, labels=mylabels, autopct='%1.1f%%')
-    ax.set_title(f"Server Utilization {server_no}")
+    ax.set_title(f"Server {server_no}")
     st.pyplot(fig)
+
+
+# Function to visualize Server Utilization
+def OverallUtilization(overall_util):
+    idleTime = 1 - overall_util
+    y = np.array([overall_util, idleTime])
+    mylabels = ["Utilized Server", "Idle Time"]
+
+    fig, ax = plt.subplots()
+    ax.pie(y, labels=mylabels, autopct='%1.1f%%')
+    ax.set_title("Overall Model Utilization")
+    st.pyplot(fig)
+
 
 
 # Function to calculate server utilization
 def calculate_server_utilization(df):
-    server_service_times = {server: 0 for server in df['Server'].unique()}
-    print("server_service_times = ", server_service_times)
 
-    for index, row in df.iterrows():
-        server_service_times[row['Server']] += row['Service Time']
+    server_service_times = df.groupby('Server')['Service Time'].sum()
 
-    total_time = df['End Time'].max() - 0
-
-    
+    # total_time = df['End Time'].max() - 0
+    total_service_time = np.sum(df["Service Time"])
 
     # Calculate server utilization
-    server_utilization = {server: service_time / total_time for server, service_time in server_service_times.items()}
+    server_utilization = {server: service_time / total_service_time for server, service_time in server_service_times.items()}
 
     return server_utilization
 
@@ -129,7 +138,7 @@ def plot_gantt_chart(df, num_servers):
 
     ax.set_xlabel("Time")
     ax.set_ylabel("Servers")
-    ax.set_title("Gantt Chart for Customers with Multiple Servers")
+    # ax.set_title("Gantt Chart for Customers with Multiple Servers")
     ax.grid(axis="x", linestyle="--", alpha=0.7)
 
     # Dynamically calculate bin_gap for x-axis
