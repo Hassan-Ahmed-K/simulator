@@ -21,7 +21,7 @@ def ggn(lembda, meu, sigma, n_servers):
     cp = []
     cpl = [0]
     int_arrival = [0]
-    arrival = []
+    arrival = [0]
     service = []
     TA = []
     WT = []
@@ -41,9 +41,10 @@ def ggn(lembda, meu, sigma, n_servers):
     # Generating customers dynamically
     ran_var = 0
     arrival_time = 0
-    while ran_var < 1:
+    service.append(math.ceil(-meu * math.log(random.uniform(0, 1))))
+    for i in range(len(cp)-1):
         ran_var = float("%.4f" % random.uniform(0, 1))
-        for j in range(len(cp)-1):
+        for j in range(len(cp)):
             if cpl[j] < ran_var <= cp[j]:
                 inter_arrival = j
                 int_arrival.append(inter_arrival)
@@ -71,6 +72,7 @@ def ggn(lembda, meu, sigma, n_servers):
             start_time = server_end[earliest_server][-1]
         else:
             start_time = arrival[i]
+
         end_time = start_time + service[i]
 
         # Update server records
@@ -117,9 +119,9 @@ def ggn(lembda, meu, sigma, n_servers):
     return df
 
 
-lembda = st.number_input("Mean arrival rate (λ)", step=0.1, format="%.2f", value=0.5)
+lembda = st.number_input("Mean arrival rate (λ)", step=0.1, format="%.2f", value=1.5)
 meu = st.number_input("Mean service rate (μ) - Minimum", step=0.1, format="%.2f", value=5.0)
-sigma = st.number_input("Standard deviation (σ) - Maximum", min_value=1.0, max_value=50.0, step=0.1, value=10.0)
+sigma = st.number_input("Standard deviation (σ) - Maximum", min_value=1.0, max_value=50.0, step=0.1, value=7.0)
 num_servers = st.number_input("Number of servers", min_value=1, max_value=10, step=1, value=3)
 # num_entries = st.number_input("Number of entries (customers)", min_value=1, max_value=1000, step=1, value=20)
 

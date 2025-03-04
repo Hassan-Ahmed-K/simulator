@@ -20,7 +20,7 @@ def mgn(lembda, meuMin, meuMax, n):
     cp = []
     cpl = [0]
     int_arrival = [0]
-    arrival = []
+    arrival = [0]
     service = []
     TA = []
     WT = []
@@ -48,13 +48,18 @@ def mgn(lembda, meuMin, meuMax, n):
                 int_arrival.append(j)
 
     # Arrival time generation
-    arrival.append(int_arrival[0])
     for i in range(1, len(cp)):
+        # st.write("i = ",i)
         arrival.append(int_arrival[i] + arrival[i - 1])
 
     # Service time generation
     for i in range(len(cp)):
         service.append(math.ceil(-meu * math.log(random.uniform(0, 1))))
+
+    
+    # st.write("service = ",len(service))
+    # st.write("arrival = ",len(arrival))
+    # st.write("int_arrival = ",len(int_arrival))
 
     # Server assignments
     ends = [0] * n
@@ -93,7 +98,7 @@ def mgn(lembda, meuMin, meuMax, n):
 # Input fields
 lambda_value = st.number_input("Enter the value of lambda", min_value=0.1, value=1.5, step=0.1)
 meu_min = st.number_input("Enter the minimum value for meu", min_value=1.0, value=3.0, step=0.1)
-meu_max = st.number_input("Enter the maximum value for meu", min_value=1.0, value=7.0, step=0.1)
+meu_max = st.number_input("Enter the maximum value for meu", min_value=1.0, value=5.0, step=0.1)
 num_servers = st.number_input("Enter the number of servers", min_value=1, value=1, step=1)
 # num_entries = st.number_input("Enter the number of entries", min_value=1, value=10, step=1)
 
