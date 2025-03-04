@@ -91,7 +91,7 @@ def mgn(lembda, meuMin, meuMax, n):
 
 
 # Input fields
-lambda_value = st.number_input("Enter the value of lambda", min_value=1.0, value=1.5, step=0.1)
+lambda_value = st.number_input("Enter the value of lambda", min_value=0.1, value=1.5, step=0.1)
 meu_min = st.number_input("Enter the minimum value for meu", min_value=1.0, value=3.0, step=0.1)
 meu_max = st.number_input("Enter the maximum value for meu", min_value=1.0, value=7.0, step=0.1)
 num_servers = st.number_input("Enter the number of servers", min_value=1, value=1, step=1)
@@ -138,10 +138,13 @@ if st.button("Generate Simulation"):
     st.write("### Service Time vs Customers")
     entVsService(df["Customer"], df["Service Time"])
 
+
+    i=1
     st.write("### Server Utilization")
     server_util = calculate_server_utilization(df)
     for server, utilization in server_util.items():
-        ServerUtilization(utilization)
+        ServerUtilization(utilization,server_no=i)
+        i+=1
 
     
 

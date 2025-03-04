@@ -83,27 +83,28 @@ def entVsWT(s_no, WT):
 
 
 # Function to visualize Server Utilization
-def ServerUtilization(Server_util):
+def ServerUtilization(Server_util,server_no):
     idleTime = 1 - Server_util
     y = np.array([Server_util, idleTime])
     mylabels = ["Utilized Server", "Idle Time"]
 
     fig, ax = plt.subplots()
     ax.pie(y, labels=mylabels, autopct='%1.1f%%')
-    ax.set_title("Server Utilization")
+    ax.set_title(f"Server Utilization {server_no}")
     st.pyplot(fig)
 
 
 # Function to calculate server utilization
 def calculate_server_utilization(df):
     server_service_times = {server: 0 for server in df['Server'].unique()}
+    print("server_service_times = ", server_service_times)
 
-    # Calculate the total service time for each server
     for index, row in df.iterrows():
         server_service_times[row['Server']] += row['Service Time']
 
-    # Calculate total time (from first arrival to last end time)
-    total_time = df['End Time'].max() - df['Start Time'].min()
+    total_time = df['End Time'].max() - 0
+
+    
 
     # Calculate server utilization
     server_utilization = {server: service_time / total_time for server, service_time in server_service_times.items()}

@@ -160,5 +160,7 @@ if st.button("Generate Simulation"):
 
     st.write("### Server Utilization")
     server_util = calculate_server_utilization(df)
+    i=1
     for server, utilization in server_util.items():
-        ServerUtilization(utilization)
+        ServerUtilization(utilization,server_no=i)
+        i+=1

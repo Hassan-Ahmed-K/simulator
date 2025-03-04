@@ -44,6 +44,8 @@ def calculate_performance_metrics_variance(arrival_rate, num_servers, distributi
 
     service_rate = 1 / service_mean
     rho = calculate_utilization(arrival_rate, service_rate, num_servers)
+    if rho >= 1:
+        return "Error: Utilization (ρ) must be less than 1."
     P0 = calculate_P0(arrival_rate, service_rate, rho, num_servers)
     if P0:
         if num_servers > 1:
@@ -64,10 +66,10 @@ def calculate_performance_metrics_variance(arrival_rate, num_servers, distributi
 st.title("M/G/S Queuing Model")
 
 # Input Fields
-arrival_rate = st.number_input("Arrival Rate (λ)", min_value=0.01, step=0.01, value=2.0, format="%.2f")
+arrival_rate = st.number_input("Arrival Rate (λ)", min_value=0.01, step=0.01, value=0.1, format="%.2f")
 
 
-distribution = st.selectbox("Select Service Time Distribution", ["normal", "uniform"])
+distribution = st.selectbox("Select Service Time Distribution", ["uniform","normal"])
 
 if distribution == "normal":
     # Set reasonable default values that avoid any potential issues
@@ -78,16 +80,18 @@ if distribution == "normal":
         st.warning("Service Mean should be greater than Service Standard Deviation for a proper normal distribution.")
     params = {"service_mean": service_mean, "service_stddev": service_stddev}
 elif distribution == "uniform":
-    service_min = st.number_input("Service Minimum Time", min_value=0.01, step=0.01, value=1.0, format="%.2f")
-    service_max = st.number_input("Service Maximum Time", min_value=service_min + 0.01, step=0.01, value=2.0, format="%.2f")
+    service_min = st.number_input("Service Minimum Time", min_value=0.01, step=0.01, value=10.0, format="%.2f")
+    service_max = st.number_input("Service Maximum Time", min_value=0.02, step=0.01, value=20.0, format="%.2f")
     params = {"service_min": service_min, "service_max": service_max}
 
 
-num_servers = st.number_input("Number of Servers (c)", min_value=1, max_value=50, step=1, value=1)
+num_servers = st.number_input("Number of Servers (c)", min_value=1, max_value=50, step=1, value=2)
 # Calculate and Display Results
 if st.button("Calculate Metrics"):
     results = calculate_performance_metrics_variance(arrival_rate, num_servers, distribution, **params)
-    if results:
+    if isinstance(results, str):  # Error message
+        st.error(results)
+    else :
         P0, rho, Lq, L, Wq, W = results
         st.subheader("Results")
         st.write(f"System Utilization (ρ): {rho:.4f}")
